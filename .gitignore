@@ -1,0 +1,44 @@
+datasets/
+Results/
+
+# Python 编译缓存
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# 虚拟环境（conda 或 venv）
+env/
+venv/
+.venv/
+*.env/
+*.conda/
+*.virtualenv/
+
+# Conda 环境文件夹
+*/.conda_env/
+.conda/
+conda_env/
+
+# Jupyter Notebook 检查点
+.ipynb_checkpoints
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# IDE 配置文件
+.vscode/
+.idea/
+
+# 日志文件
+*.log
+
+# 数据文件（可选，根据你的项目情况）
+*.csv
+*.tsv
+*.dat
+*.pickle
+*.pkl
+*.h5
