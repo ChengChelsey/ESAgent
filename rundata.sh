@@ -21,9 +21,11 @@ PY
 awk '{print NR-1}' jobs.txt | awk '{print $1%4}' > gpus.txt
 paste -d' ' gpus.txt jobs.txt > jobs_gpu.txt
 
-# 3) 执行 (注意 run.py 的路径)
-cat jobs_gpu.txt | parallel -j4 --colsep ' ' '
-CUDA_VISIBLE_DEVICES={1} OMP_NUM_THREADS=4 \
-python3 EasyTSAD/Examples/run_cli.py --dataset {2} --method {3} --dirname ../datasets --schema naive \
-> logs/{2}_{3}.log 2>&1
+# 3) 用 xargs 启动最多 4 个任务
+cat jobs_gpu.txt | xargs -n3 -P4 bash -c '
+gpu=$0; dataset=$1; method=$2
+echo "[`date`] Running $dataset $method on GPU $gpu"
+CUDA_VISIBLE_DEVICES=$gpu OMP_NUM_THREADS=4 \
+python3 EasyTSAD/run.py --dataset $dataset --method $method --dirname ../datasets --schema naive \
+> logs/${dataset}_${method}.log 2>&1
 '
