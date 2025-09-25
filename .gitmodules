@@ -1,0 +1,4 @@
+[submodule "EasyTSAD"]
+	path = EasyTSAD
+	url = git@github.com:ChengChelsey/EasyTSAD.git
+	branch = main
