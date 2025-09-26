@@ -1,5 +1,6 @@
 datasets/
 Results/
+conda_py310/
 
 # Python 编译缓存
 __pycache__/

@@ -10,7 +10,7 @@ mkdir -p logs
 
 # 1) 生成任务列表
 python3 - <<'PY' > jobs.txt
-datasets = ["AIOPS","TODS","UCR","WSD"]
+datasets = ["UCR","WSD"]
 methods  = ["AE","Donut","EncDecAD","LSTMADalpha","LSTMADbeta","FCVAE"]
 for d in datasets:
     for m in methods:
@@ -26,6 +26,6 @@ cat jobs_gpu.txt | xargs -n3 -P4 bash -c '
 gpu=$0; dataset=$1; method=$2
 echo "[`date`] Running $dataset $method on GPU $gpu"
 CUDA_VISIBLE_DEVICES=$gpu OMP_NUM_THREADS=4 \
-python3 EasyTSAD/run.py --dataset $dataset --method $method --dirname ../datasets --schema naive \
+python3 EasyTSAD/Examples/run_cli.py --dataset $dataset --method $method --dirname datasets --schema naive \
 > logs/${dataset}_${method}.log 2>&1
 '

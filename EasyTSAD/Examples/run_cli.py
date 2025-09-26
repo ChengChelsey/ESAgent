@@ -1,6 +1,11 @@
 # run.py
 import argparse
 from EasyTSAD.Controller import TSADController
+import importlib
+
+METHOD_ALIASES = ["AE", "Donut", "EncDecAD", "LSTMADalpha", "LSTMADbeta", "FCVAE"]
+for name in METHOD_ALIASES:
+    importlib.import_module(f"EasyTSAD.Methods.{name}")
 
 def main():
     parser = argparse.ArgumentParser()
@@ -22,7 +27,7 @@ def main():
     # 训练/推理（保存 scores 到 Results/Scores/<Method>/one_by_one/<DATASET>/<Series>.npy）
     for method in methods:
         print(f"[RUN] dataset={datasets} method={method} schema={args.schema}")
-        gctrl.run_exps(method=method, training_schema=args.schema, cuda=True)
+        gctrl.run_exps(method=method, training_schema=args.schema)
 
     # 评估（可关）
     if not args.no_eval:
